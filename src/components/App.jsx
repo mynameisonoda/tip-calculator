@@ -13,7 +13,7 @@ function App() {
 
                     <section name="tip-selection">
                         <label htmlFor="">Select Tip%</label>
-                        <div name="tip-selection-group" className="container grid grid-rows-2 grid-cols-3 gap-2">
+                        <div name="tip-selection-group" className="container grid grid-rows-2 grid-cols-3 gap-2 text-9xl">
 
                             <Button
                             percent_text="5%"
