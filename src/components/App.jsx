@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 
 function App() {
     return (
@@ -13,34 +14,30 @@ function App() {
 
                     <section name="tip-selection">
                         <label htmlFor="">Select Tip%</label>
-                        <div name="tip-selection-group" className="container grid grid-rows-2 grid-cols-3 gap-2">
+                        <div name="tip-selection-group" className="container grid grid-rows-2 grid-cols-3 gap-2 text-9xl">
 
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
-                                <input type="radio" name="size-choice" value="0.05" className="sr-only" />
-                                <span>5%</span>
-                                <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
+                            <Button/>
+                            <label className="text-2xl flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
                                 <input type="radio" name="size-choice" value="0.1" className="sr-only" />
                                 <span>10%</span>
                                 <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                             </label>
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
+                            <label className="text-2xl flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
                                 <input type="radio" name="size-choice" value="0.15" className="sr-only" />
                                 <span>15%</span>
                                 <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                             </label>
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
+                            <label className="text-2xl flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
                                 <input type="radio" name="size-choice" value="0.25" className="sr-only" />
                                 <span>25%</span>
                                 <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                             </label>
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
+                            <label className="text-2xl flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
                                 <input type="radio" name="size-choice" value="0.5" className="sr-only" />
                                 <span>50%</span>
                                 <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                             </label>
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
+                            <label className="text-2xl flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
                                 <input type="text" name="size-choice" className="sr-only" />
                                 <span>Custom</span>
                                 <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
