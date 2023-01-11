@@ -19,26 +19,34 @@ function App() {
 
         switch (inputName) {
             case "bill":
-                //Note to self: figure out how to set values, everything else still works  :)
                 setValue(prevValue => {
                     return {
-
                         billAmount: inputValue,
                         selectedTip: prevValue.selectedTip,
                         numOfPeople: prevValue.numOfPeople,
-                        tipAmount: billAmount * selectedTip,
-                        splitPayAmount: (billAmount + tipAmount)/numOfPeople,
                     }
                 })
-                console.log(value);
                 break;
             case "tipPercent":
-                console.log("Tip input triggered");
+                setValue(prevValue => {
+                    return {
+                        billAmount: prevValue.billAmount,
+                        selectedTip: inputValue,
+                        numOfPeople: prevValue.numOfPeople,
+                    }
+                })
                 break;
             case "peopleCount":
-                console.log("People input triggered");
+                setValue(prevValue => {
+                    return {
+                        billAmount: prevValue.billAmount,
+                        selectedTip: prevValue.selectedTip,
+                        numOfPeople: inputValue,
+                    }
+                })
                 break;
         }
+        console.log(value);
     };
 
     return (
@@ -107,7 +115,7 @@ function App() {
                     <p className="row-span-2 text-5xl">$0.00</p>
                     <p>/ person</p>
                 </div>
-                <button className="mx-auto bg-teal-400 rounded-lg w-10/12">Reset</button>
+                <button className="mx-auto bg-teal-400 rounded-lg w-8/12 h-1/2 px-4 py-2">Reset</button>
             </section>
         </div>
 
