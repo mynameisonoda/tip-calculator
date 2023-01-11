@@ -1,62 +1,79 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import RadioButton from "./RadioButton";
 
 function App() {
 
-    const defaultValues = {
-        billAmount: "0",
-        selectedTip: "0",
-        numOfPeople: "0",
-        tipAmount: "0",
-        splitPayAmount: "0",
-    };
-    const [value, setValue] = useState(defaultValues);
-
+    //Handle bill amount, selected tip amount, and number of people
+    const [billInfo, setBillInfo] = useState({
+        billAmount: "",
+        selectedTip: "",
+        numOfPeople: "",
+    });
     function handleChange(event) {
 
-        let inputName = event.target.name;
-        let inputValue = event.target.value;
+        const { name, value } = event.target;
 
-        switch (inputName) {
+        switch (name) {
             case "bill":
-                setValue(prevValue => {
+                setBillInfo(prevValue => {
                     return {
-                        billAmount: inputValue,
+                        billAmount: value,
                         selectedTip: prevValue.selectedTip,
                         numOfPeople: prevValue.numOfPeople,
                     }
                 })
                 break;
             case "tipPercent":
-                setValue(prevValue => {
+                setBillInfo(prevValue => {
                     return {
                         billAmount: prevValue.billAmount,
-                        selectedTip: inputValue,
+                        selectedTip: value,
                         numOfPeople: prevValue.numOfPeople,
                     }
                 })
                 break;
             case "peopleCount":
-                setValue(prevValue => {
+                setBillInfo(prevValue => {
                     return {
                         billAmount: prevValue.billAmount,
                         selectedTip: prevValue.selectedTip,
-                        numOfPeople: inputValue,
+                        numOfPeople: value,
                     }
                 })
                 break;
-        }
-        console.log(value);
+        };
     };
 
+    // Handle bill calculation and split
+    const defaultPaymentInfo = {
+        tipAmount: "$0.00",
+        splitPayAmount: "$0.00",
+    }
+    const [payment, setPayment] = useState(defaultPaymentInfo);
+
     function handleCalculation() {
-        setValue(prevValue => {
+        // Calculate tip per person and overall payment per person
+        const tip = billInfo.selectedTip * billInfo.billAmount;
+        const dividedTip = `$${(tip / billInfo.numOfPeople).toFixed(2)}`;
+        const paymentPerPerson = `$${((Number(billInfo.billAmount) + tip) / Number(billInfo.numOfPeople)).toFixed(2)}`;
+
+        setPayment(() => {
             return {
-                tipAmount: (prevValue.selectedTip*prevValue.billAmount)/prevValue.numOfPeople,
-                splitPayAmount: (prevValue.billAmount+prevValue.tipAmount)/prevValue.numOfPeople,
-            }
-        })
-        console.log(value);
+                tipAmount: dividedTip,
+                splitPayAmount: paymentPerPerson,
+            };
+        });
+    }
+
+    // NEXT: WORK ON RESET SCRIPT AND AESTHETICS
+    function resetValues() {
+        document.getElementsByName("bill").value="0";
+        document.getElementsByName("tipPercent").value="0";
+        setPayment(() => {
+            return defaultPaymentInfo;
+        });
+        console.log(billInfo);
+        console.log(payment)
     }
 
     return (
@@ -72,27 +89,27 @@ function App() {
                         <label htmlFor="">Select Tip%</label>
                         <div name="tip-selection-group" className="container grid grid-rows-2 grid-cols-3 gap-2 text-9xl">
 
-                            <Button
+                            <RadioButton
                                 percent_text="5%"
                                 percent_value="0.05"
                                 handleChange={handleChange}
                             />
-                            <Button
+                            <RadioButton
                                 percent_text="10%"
                                 percent_value="0.1"
                                 handleChange={handleChange}
                             />
-                            <Button
+                            <RadioButton
                                 percent_text="15%"
                                 percent_value="0.15"
                                 handleChange={handleChange}
                             />
-                            <Button
+                            <RadioButton
                                 percent_text="25%"
                                 percent_value="0.25"
                                 handleChange={handleChange}
                             />
-                            <Button
+                            <RadioButton
                                 percent_text="50%"
                                 percent_value="0.5"
                                 handleChange={handleChange}
@@ -102,9 +119,9 @@ function App() {
                                 <span>Custom</span>
                                 <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                             </label>
-
                         </div>
                     </section>
+
                     <section className="grid grid-rows-2 py-8">
                         <label htmlFor="people-count" className="py-2">Number of People</label>
                         <input type="text" name="peopleCount" placeholder="0" className="rounded-md text-right pr-3" onChange={handleChange} />
@@ -116,17 +133,17 @@ function App() {
             <section name="results" className="grid grid-rows-3 bg-[#00494d] text-white px-4 py-8 rounded-lg">
                 <div className="grid grid-cols-2">
                     <p>Tip Amount</p>
-                    <p className="row-span-2 text-5xl">$0.00</p>
+                    <p className="row-span-2 text-5xl text-teal-400">{payment.tipAmount}</p>
                     <p>/ person</p>
                 </div>
 
                 <div className="grid grid-cols-2">
                     <p>Total</p>
-                    <p className="row-span-2 text-5xl">$0.00</p>
+                    <p className="row-span-2 text-5xl text-teal-400">{payment.splitPayAmount}</p>
                     <p>/ person</p>
                 </div>
-                <button className="mx-auto bg-teal-400 rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={handleCalculation}>Calculate</button>
-                <button className="mx-auto bg-teal-400 rounded-lg w-8/12 h-1/2 px-4 py-2">Reset</button>
+                <button className="mx-auto bg-teal-400 text-[#00494d] rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={handleCalculation}>Calculate</button>
+                <button className="mx-auto bg-teal-400 text-[#00494d] rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={resetValues}>Reset</button>
             </section>
         </div>
 
