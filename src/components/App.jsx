@@ -49,6 +49,16 @@ function App() {
         console.log(value);
     };
 
+    function handleCalculation() {
+        setValue(prevValue => {
+            return {
+                tipAmount: (prevValue.selectedTip*prevValue.billAmount)/prevValue.numOfPeople,
+                splitPayAmount: (prevValue.billAmount+prevValue.tipAmount)/prevValue.numOfPeople,
+            }
+        })
+        console.log(value);
+    }
+
     return (
         <div className="container relative border rounded-md mx-auto my-12 px-4 py-4 bg-slate-50 grid grid-cols-2 gap-8">
             <section name="calculations">
@@ -115,6 +125,7 @@ function App() {
                     <p className="row-span-2 text-5xl">$0.00</p>
                     <p>/ person</p>
                 </div>
+                <button className="mx-auto bg-teal-400 rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={handleCalculation}>Calculate</button>
                 <button className="mx-auto bg-teal-400 rounded-lg w-8/12 h-1/2 px-4 py-2">Reset</button>
             </section>
         </div>
