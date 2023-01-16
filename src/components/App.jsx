@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import RadioButton from "./RadioButton";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { faSolid } from '@fortawesome/fontawesome-svg-core/import.macro';
+
 function App() {
 
     //Handle bill amount, selected tip amount, and number of people
-    const [billInfo, setBillInfo] = useState({
+    const defaultBillInfo = {
         billAmount: "",
         selectedTip: "",
         numOfPeople: "",
-    });
-    function handleChange(event) {
+    };
+    const [billInfo, setBillInfo] = useState(defaultBillInfo);
 
+    function handleChange(event) {
         const { name, value } = event.target;
 
         switch (name) {
@@ -65,24 +70,24 @@ function App() {
         });
     }
 
-    // NEXT: WORK ON RESET SCRIPT AND AESTHETICS
     function resetValues() {
-        document.getElementsByName("bill").value="0";
-        document.getElementsByName("tipPercent").value="0";
-        setPayment(() => {
-            return defaultPaymentInfo;
-        });
-        console.log(billInfo);
-        console.log(payment)
+        const billForm = document.getElementById("bill-form");
+
+        billForm.reset();
+
+        // Visually, form clears with above method but the values does not reset, below sets the values back to the default values
+        setBillInfo(() => { return defaultBillInfo });
+        setPayment(() => { return defaultPaymentInfo });
     }
 
     return (
-        <div className="container relative border rounded-md mx-auto my-12 px-4 py-4 bg-slate-50 grid grid-cols-2 gap-8">
+        <div className="container relative border rounded-3xl mx-auto my-24 px-8 py-8 bg-white grid grid-cols-2 gap-8">
             <section name="calculations">
-                <form action="">
+                <form id="bill-form">
                     <section name="bill-section" className="grid grid-rows-2 py-8">
                         <label htmlFor="bill" className="py-2">Bill</label>
-                        <input type="text" name="bill" placeholder="0" className="rounded-md text-right pr-3" onChange={handleChange} />
+                        <FontAwesomeIcon icon="fa-solid fa-dollar-sign" />
+                        <input type="text" id="bill" name="bill" placeholder="0" className="rounded-md text-right pr-3 bg-[#E2F3F3]" onChange={handleChange} />
                     </section>
 
                     <section name="tip-selection">
@@ -114,36 +119,39 @@ function App() {
                                 percent_value="0.5"
                                 handleChange={handleChange}
                             />
-                            <label className="flex border rounded-md py-3 px-4 items-center justify-center text-sm font-medium hover:bg-gray-50 focus:outline-none sm:flex-1 bg-[#00494d] shadow-sm text-white cursor-pointer">
-                                <input type="text" name="tipPercent" className="sr-only" />
-                                <span>Custom</span>
-                                <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
+                            <input type="text" name="tipPercent" placeholder="Custom %" className="flex border rounded-md py-3 px-4 text-sm text-center bg-[#E2F3F3] hover:bg-gray-50 border-transparent text-[#00494d] placeholder-[#00494d] cursor-pointer" />
                         </div>
                     </section>
 
                     <section className="grid grid-rows-2 py-8">
                         <label htmlFor="people-count" className="py-2">Number of People</label>
-                        <input type="text" name="peopleCount" placeholder="0" className="rounded-md text-right pr-3" onChange={handleChange} />
+                        <FontAwesomeIcon icon="fa-solid fa-dollar-sign" />
+                        <input type="text" name="peopleCount" id="peopleCount" placeholder="0" className="rounded-md text-right pr-3 bg-[#E2F3F3]" onChange={handleChange} />
                     </section>
-
                 </form>
             </section>
 
             <section name="results" className="grid grid-rows-3 bg-[#00494d] text-white px-4 py-8 rounded-lg">
                 <div className="grid grid-cols-2">
-                    <p>Tip Amount</p>
+                    <div className="grid grid-cols-1">
+                        <p>Tip Amount</p>
+                        <p>/ person</p>
+                    </div>
                     <p className="row-span-2 text-5xl text-teal-400">{payment.tipAmount}</p>
-                    <p>/ person</p>
                 </div>
 
                 <div className="grid grid-cols-2">
-                    <p>Total</p>
+                    <div className="grid grid-cols-1">
+                        <p>Total</p>
+                        <p>/ person</p>
+                    </div>
                     <p className="row-span-2 text-5xl text-teal-400">{payment.splitPayAmount}</p>
-                    <p>/ person</p>
+
                 </div>
-                <button className="mx-auto bg-teal-400 text-[#00494d] rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={handleCalculation}>Calculate</button>
-                <button className="mx-auto bg-teal-400 text-[#00494d] rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={resetValues}>Reset</button>
+                <div name="button-container" className="grid grid-cols-2">
+                    <button className="mx-auto bg-teal-400 text-[#00494d] rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={handleCalculation}>Calculate</button>
+                    <button className="mx-auto bg-teal-400 text-[#00494d] rounded-lg w-8/12 h-1/2 px-4 py-2" onClick={resetValues}>Reset</button>
+                </div>
             </section>
         </div>
 
